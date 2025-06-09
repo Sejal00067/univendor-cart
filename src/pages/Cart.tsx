@@ -6,9 +6,13 @@ import { Minus, Plus, Trash2, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Cart = () => {
-  const { cart, updateQuantity, removeFromCart, getCartTotal } = useCart();
+  const { items, updateQuantity, removeFromCart, getCartCount } = useCart();
 
-  if (cart.length === 0) {
+  const getCartTotal = () => {
+    return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  if (items.length === 0) {
     return (
       <div className="text-center space-y-6 py-16">
         <ShoppingBag className="w-16 h-16 text-muted-foreground mx-auto" />
@@ -30,8 +34,8 @@ const Cart = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Cart Items */}
         <div className="lg:col-span-2 space-y-4">
-          {cart.map((item) => (
-            <Card key={`${item.name}-${item.color}-${item.size}`}>
+          {items.map((item) => (
+            <Card key={item.id}>
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
                   {/* Product Image */}
@@ -59,7 +63,7 @@ const Cart = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => updateQuantity(item.name, item.color, item.size, Math.max(0, item.quantity - 1))}
+                      onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}
                     >
                       <Minus className="w-4 h-4" />
                     </Button>
@@ -67,7 +71,7 @@ const Cart = () => {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => updateQuantity(item.name, item.color, item.size, item.quantity + 1)}
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
                       <Plus className="w-4 h-4" />
                     </Button>
@@ -77,7 +81,7 @@ const Cart = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => removeFromCart(item.name, item.color, item.size)}
+                    onClick={() => removeFromCart(item.id)}
                     className="text-destructive hover:text-destructive"
                   >
                     <Trash2 className="w-4 h-4" />
