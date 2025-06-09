@@ -29,10 +29,10 @@ const ProductPage = () => {
     price: 29.99,
     description: "A comfortable and stylish cotton t-shirt perfect for everyday wear. Made from 100% organic cotton with a soft, breathable feel.",
     colors: [
-      { name: 'Navy', hex: '#1e3a8a', image: '/placeholder.svg?height=500&width=500&text=Navy+T-Shirt' },
-      { name: 'White', hex: '#ffffff', image: '/placeholder.svg?height=500&width=500&text=White+T-Shirt' },
-      { name: 'Black', hex: '#000000', image: '/placeholder.svg?height=500&width=500&text=Black+T-Shirt' },
-      { name: 'Gray', hex: '#6b7280', image: '/placeholder.svg?height=500&width=500&text=Gray+T-Shirt' },
+      { name: 'Navy', hex: '#1e3a8a', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop&crop=center' },
+      { name: 'White', hex: '#ffffff', image: 'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=500&h=500&fit=crop&crop=center' },
+      { name: 'Black', hex: '#000000', image: 'https://images.unsplash.com/photo-1583743814966-8936f37f530a?w=500&h=500&fit=crop&crop=center' },
+      { name: 'Gray', hex: '#6b7280', image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&h=500&fit=crop&crop=center' },
     ] as ProductColor[],
     sizes: [
       { name: 'XS', available: true },
@@ -104,6 +104,29 @@ const ProductPage = () => {
             alt={product.name}
             className="w-full h-full object-cover transition-all duration-300"
           />
+        </div>
+        
+        {/* Thumbnail Images */}
+        <div className="flex space-x-2">
+          {product.colors.map((color) => (
+            <div 
+              key={color.name}
+              className={`w-16 h-16 rounded-md overflow-hidden border-2 cursor-pointer transition-all duration-200 ${
+                selectedColor === color.name || hoveredColor === color.name
+                  ? 'border-primary'
+                  : 'border-border'
+              }`}
+              onClick={() => setSelectedColor(color.name)}
+              onMouseEnter={() => setHoveredColor(color.name)}
+              onMouseLeave={() => setHoveredColor('')}
+            >
+              <img
+                src={color.image}
+                alt={`${product.name} in ${color.name}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
