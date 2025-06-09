@@ -7,16 +7,16 @@ import { AuthProvider } from '@/contexts/AuthContext';
 
 const Index = () => {
   return (
-    <AuthProvider>
-      <CartProvider>
+    <CartProvider>
+      <AuthProvider>
         <div className="min-h-screen bg-background">
           <Header />
           <main className="container mx-auto px-4 py-8">
             <ProductPage />
           </main>
         </div>
-      </CartProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </CartProvider>
   );
 };
 
