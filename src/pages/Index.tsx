@@ -1,20 +1,16 @@
 
-import { useState } from 'react';
-import ProductPage from '@/components/ProductPage';
-import Header from '@/components/Header';
+import Home from './Home';
 import { CartProvider } from '@/contexts/CartContext';
 import { AuthProvider } from '@/contexts/AuthContext';
+import Layout from '@/components/Layout';
 
 const Index = () => {
   return (
     <CartProvider>
       <AuthProvider>
-        <div className="min-h-screen bg-background">
-          <Header />
-          <main className="container mx-auto px-4 py-8">
-            <ProductPage />
-          </main>
-        </div>
+        <Layout>
+          <Home />
+        </Layout>
       </AuthProvider>
     </CartProvider>
   );
